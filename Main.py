@@ -1,7 +1,3 @@
-from faulthandler import disable
-from multiprocessing.context import set_spawning_popen
-
-from black import main
 from Class import *
 # Clases que contienen las ventanas a utilizar
 
@@ -23,7 +19,10 @@ class Menu(ttk.Frame):
         self.btn_2.grid(row=1,column=2)
 
         self.btn_6 = ttk.Button(self,command = self.go_conversion, text="Conversion")
-        self.btn_6.grid(row=2,column=1)
+        self.btn_6.grid(row=2,column=0)
+
+        self.btn_6 = ttk.Button(self,command = self.go_tablas_multiplicar, text="Tablas de Multiplicar")
+        self.btn_6.grid(row=2,column=2)
 
         self.btn_3 = ttk.Button(self,command = self.go_metodo_resta, text="Metodo Resta")
         self.btn_3.grid(row=3,column=0)
@@ -37,6 +36,10 @@ class Menu(ttk.Frame):
         
 
         self.pack()
+
+    def go_tablas_multiplicar(self):
+        self.pack_forget()
+        Tablas_de_Multiplicar(self.main)
 
     def go_techo_numero(self):
         self.pack_forget()
@@ -432,6 +435,53 @@ class Conversiones(ttk.Frame):
         base = decimal_base(decimal, int(self.entry_baseF.get()))
 
         self.t_result.set(str(base))
+
+class Tablas_de_Multiplicar(ttk.Frame):
+    def __init__(self, main_window):
+        super().__init__(main_window)
+        main_window.title("Calculadora FOC - Tablas")
+        self.main = main_window
+        self.text = ttk.Label(self, text="Tablas de Mltiplicar")
+        self.text.grid(row=0, column=1)
+
+        self.button = ttk.Button(self,command= self.go_main, text= "Menu")
+        self.button.grid(row=1, column=1)
+ 
+        self.txt_base = ttk.Label(self, text="Digite la Base")
+        self.txt_base.grid(row=3, column=0)
+
+        self.entry_base = self.entry = ttk.Entry(self)
+        self.entry_base.grid(row=3, column=2)
+
+        self.txt_tabla = ttk.Label(self, text="Digite la Tabla")
+        self.txt_tabla.grid(row=4, column=0)
+
+        self.entry_tabla = self.entry = ttk.Entry(self)
+        self.entry_tabla.grid(row=4, column=2)
+
+        self.btn_calc = ttk.Button(self,command= self.calc, text="Calcular")
+        self.btn_calc.grid(row=5, column=1)
+
+        self.t_result = tk.StringVar()
+        self.t_result.set("Resultado = ")
+        self.txt_result =  ttk.Label(self, textvariable=self.t_result)
+        self.txt_result.grid(row=6, column=1)
+
+        self.pack()
+
+    def go_main(self):
+        self.pack_forget()
+        Menu(self.main)
+
+    def calc(self):
+        resultado = ""
+        base = int(self.entry_base.get())
+        tabla = int(self.entry_tabla.get())
+        for  i in range(base):
+            multi = i*tabla
+            resultado += str(i) + "x" + str(tabla) + " = " + str(decimal_base(multi, base)) + "\n"
+        
+        self.t_result.set(resultado)
 
 main_window = tk.Tk()
 app = Menu(main_window)

@@ -67,5 +67,3 @@ def base_decimal(num, base):
         pos = len(num)-n-1
         resultado += num[pos]*(base**n)
     return resultado
-
-print(division_numeros([1,2,2],[1,3,2],25))
