@@ -2,10 +2,10 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 
-diccionario = {"A":10,"B":11,"C":12,"D":13,"E":14,"F":15,"G":16,"H":17,
-               "I":18,"J":19,"K":20,"L":21,"M":22,"N":23,"O":24,"P":25,
-               "Q":26,"R":27,"S":28,"T":29,"U":30,"V":31,"W":32,"X":33,
-               "Y":34,"Z":35}
+diccionario = {"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,
+               "I":8,"J":9,"K":10,"L":11,"M":12,"N":13,"O":14,"P":15,
+               "Q":16,"R":17,"S":18,"T":19,"U":20,"V":21,"W":22,"X":23,
+               "Y":24,"Z":25}
 
 def techo_numero(Letra, Techo):
     global diccionario
@@ -16,12 +16,13 @@ def numero_techo(cantidad):
     global diccionario
     if cantidad >= 10:
         cantidad -= 10
-        letra = cantidad%26+10
+        letra = cantidad%26
         techos = cantidad//26
         for element in diccionario:
             if diccionario[element]==letra:
                 letra = element
-        resultado = "Letra: " + str(letra) +" Techos: "+ str(techos)
+        resultado = "Letra: " + str(letra) +" Techos: "+ str(techos) + "\n"
+        resultado += str(diccionario)
         return resultado
     else:
         return cantidad
